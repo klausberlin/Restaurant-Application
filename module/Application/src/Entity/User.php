@@ -1,14 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pawel_000
- * Date: 02.03.2017
- * Time: 14:50
- */
+
 
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="users")
+ */
 class User
 {
     /**
@@ -128,5 +128,4 @@ class User
     {
         return sha1(md5($password) . sha1($password));
     }
-
 }

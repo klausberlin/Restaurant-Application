@@ -1,74 +1,74 @@
-<div class="jumbotron">
-    <h1>Welcome to <span class="zf-green">Zend Framework</span></h1>
+<?php
+//echo $this->form()->render($form);
+$this->headTitle('Sign in');
 
-    <p>
-        Congratulations! You have successfully installed the
-        <a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">ZF Skeleton Application</a>.
-        You are currently running Zend Framework version <?= \Application\Module::VERSION ?>.
-        This skeleton can serve as a simple starting point for you to begin
-        building your application on ZF.
-    </p>
+//set Bootstrap-Style for the form
+$form->get('username')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => '#Username',
+    'required' => true,
+    'autofocus' => true
+]);
 
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zendframework" target="_blank">Fork Zend Framework on GitHub &raquo;</a></p>
-</div>
+$form->get('password')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Type password here',
+    'required' => true,
+]);
 
+$form->get('worker')->setAttributes([
+   'class'=>'form-control',
+    'required' => true
+]);
+
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+
+?>
 <div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Follow Development</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    Zend Framework is under active development. If you are
-                    interested in following the development of ZF, you can check
-                    <a href="http://framework.zend.com/blog/">ZF dev blog</a>,
-                    and <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=is:issue+org:zendframework">ZF issue tracker</a>
-                    (link requires a GitHub account). This is a great resource
-                    for staying up to date with the latest developments!
-                </p>
-
-                <p><a class="btn btn-success pull-right" href="http://framework.zend.com/" target="_blank">ZF Development Portal &raquo;</a></p>
-            </div>
+        <div class="form-group">
+            <!-- Use the _invoke method to render   -->
+            <?= $this->formLabel($form->get('username')); ?>
+            <?= $this->formElement($form->get('username')); ?>
+            <?= $this->formElementErrors($form->get('username')); ?>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Discover Modules</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    The community is working on developing a community site to
-                    serve as a repository and gallery for ZF modules. The
-                    project is available <a href="https://github.com/zendframework/modules.zendframework.com">on GitHub</a>.
-                    The site is currently live and currently contains a list of
-                    some of the modules already available for ZF.
-                </p>
-
-                <p><a class="btn btn-success pull-right" href="http://modules.zendframework.com/" target="_blank">Explore ZF Modules &raquo;</a></p>
-            </div>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('password')); ?>
+            <?= $this->formElement()->render($form->get('password')); ?>
+            <?= $this->formElementErrors($form->get('password')); ?>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Help &amp; Support</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    If you need any help or support while developing with ZF,
-                    you may reach us via IRC: <a href="irc://irc.freenode.net/zftalk">#zftalk on Freenode</a>.
-                    We'd love to hear any questions or feedback you may have
-                    regarding this release. Alternatively, you may subscribe
-                    and post questions to the <a href="http://framework.zend.com/archives/">mailing lists</a>.
-                </p>
-
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank">Ping us on IRC &raquo;</a></p>
-            </div>
+        <div class="form-group">
+            <?= $this->formElement()->render($form->get('worker')); ?>
         </div>
+
+        <div class="form-group">
+            <?= $this->formElement($form->get('submit')); ?>
+        </div>
+
+        <?= $this->form()->closeTag();?>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+<script>
+
+    //<div id="div1"><h2></h2></div>
+    //   $("#div1").load("/shodan-rest");
+
+    //   var inter =  setInterval(function() {
+    //
+    //        $("#div1").load("/shodan-rest");
+    //        clearInterval(inter)
+    //    },1000);
+</script>
