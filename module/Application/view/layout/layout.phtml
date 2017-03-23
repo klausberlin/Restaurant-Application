@@ -39,9 +39,8 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="<?= $this->url('home') ?>">Home</a></li>
-                        <?php if (true!=$this->user):?>
+                        <?php if ($this->identity()== true):?>
                             <li><a href="<?= $this->url('application',['action'=>'logout']) ?>">Logout</a></li>
-
                         <?php endif;?>
                     </ul>
                 </div>
