@@ -16,8 +16,13 @@
         "zendframework/zend-component-installer": "^1.0 || ^0.3 || ^1.0.0-dev@dev",
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
-        "doctrine/doctrine-orm-module": "^1.0.9",
-        "zendframework/zend-i18n": "^2.7"
+        "zendframework/zend-i18n": "^2.7",
+        "zendframework/zend-session": "^2.7",
+        "zendframework/zend-db": "^2.8",
+        "zendframework/zend-view": "^2.8",
+        "zendframework/zend-mvc-plugin-identity": "^1.0",
+        "zendframework/zend-mvc-plugins": "^1.0"
+
 
     },
     "autoload": {

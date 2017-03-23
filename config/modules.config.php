@@ -11,17 +11,20 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Zend\Mvc\Plugin\FilePrg',
+    'Zend\Mvc\Plugin\FlashMessenger',
+    'Zend\Mvc\Plugin\Prg',
+    'Zend\Mvc\Plugin\Identity',
+    'Zend\Session',
     'Zend\I18n',
     'Zend\Cache',
     'Zend\Form',
     'Zend\InputFilter',
     'Zend\Filter',
-//   'Zend\Mvc\I18n',
     'Zend\Paginator',
     'Zend\Hydrator',
     'Zend\Router',
     'Zend\Validator',
+    'Zend\Db',
     'Application',
-    'DoctrineModule',
-    'DoctrineORMModule',
 ];

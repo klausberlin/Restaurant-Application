@@ -7,30 +7,21 @@
 
 namespace Application;
 
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Application;
+use Application\Factory\IndexControllerFactory;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\ServiceManager\ServiceManager;
+
 
 return [
 
-    'doctrine' => [
-        'driver' => [
-            __NAMESPACE__ . '_driver' => [
-                'class' => AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [__DIR__ . '/../src/Entity']
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                ]
-            ]
-        ]
-    ],
-
     'router' => [
         'routes' => [
+
             'home' => [
                 'type' => Literal::class,
                 'options' => [
@@ -41,6 +32,18 @@ return [
                     ],
                 ],
             ],
+
+            'dashboard' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/dashboard[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\DashboardController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -51,13 +54,22 @@ return [
                     ],
                 ],
             ],
+
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            AuthenticationService::class => Application\Factory\AuthenticationServiceFactory::class,
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => IndexControllerFactory::class,
+            Controller\DashboardController::class => InvokableFactory::class,
         ],
     ],
+
+
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
