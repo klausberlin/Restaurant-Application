@@ -1,0 +1,20 @@
+kitchen
+
+
+
+
+<div id="div1"><h2></h2></div>
+
+
+<script>
+    var inter =  setInterval(function() {
+        var clearInter = setInterval(function() {
+            $("#div1").load("/kitchen-rest");
+            clearInterval(clearInter);
+            /*alert("clear"+test);*/
+        });
+    },5000);
+
+
+
+</script>

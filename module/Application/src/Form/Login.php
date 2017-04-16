@@ -46,7 +46,7 @@ class Login extends Form
                 ]
             ]
         );
-
+/*
         $this->add(
           [
               'type' => 'radio',
@@ -56,10 +56,11 @@ class Login extends Form
                   'value_options' => array(
                       '0' => 'Waitress',
                       '1' => 'Kitchen',
+                      '2' => 'Manager'
                   ),
               )
           ]);
-
+*/
         $this->add(
             [
             'type'  => 'submit',

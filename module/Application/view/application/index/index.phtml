@@ -16,12 +16,12 @@ $form->get('password')->setAttributes([
     'placeholder'=>'Type password here',
 //    'required' => true,
 ]);
-
+/*
 $form->get('worker')->setAttributes([
    'class'=>'form-control',
 //    'required' => true
 ]);
-
+*/
 $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
 
 ?>
@@ -41,11 +41,11 @@ $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
             <?= $this->formElement()->render($form->get('password')); ?>
             <?= $this->formElementErrors($form->get('password')); ?>
         </div>
-
+<!--
         <div class="form-group">
-            <?= $this->formElement()->render($form->get('worker')); ?>
+            <?php //$this->formElement()->render($form->get('worker')); ?>
         </div>
-
+-->
         <div class="form-group">
             <?= $this->formElement($form->get('submit')); ?>
         </div>

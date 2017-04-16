@@ -8,13 +8,12 @@
 namespace Application;
 
 use Application;
-use Application\Factory\IndexControllerFactory;
+use Application\Factory\Controller\IndexControllerFactory;
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\AuthenticationServiceInterface;
+use Application\Factory\Controller\DashboardControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 
 
 return [
@@ -44,6 +43,38 @@ return [
                 ],
             ],
 
+            'waitress' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/waitress[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\WaitressController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+
+            'kitchen' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/kitchen[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\KitchenController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+
+            'kitchen-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/kitchen-rest[/:id]',
+                    'defaults' => [
+                        'controller' => Controller\KitchenRestController::class,
+                    ],
+                ],
+            ],
+
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -59,13 +90,20 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            AuthenticationService::class => Application\Factory\AuthenticationServiceFactory::class,
+            AuthenticationService::class => Application\Factory\Adapter\AuthenticationServiceFactory::class,
+            Application\Model\UserModel::class => Application\Factory\Model\DbDataFactory::class,
+        ],
+        'aliases' => [
+            Model\UserInterface::class => Model\UserModel::class,
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => IndexControllerFactory::class,
-            Controller\DashboardController::class => InvokableFactory::class,
+            Controller\DashboardController::class => DashboardControllerFactory::class,
+            Controller\KitchenRestController::class => Application\Factory\Controller\KitchenRestFactory::class,
+            Controller\WaitressController::class => InvokableFactory::class,
+            Controller\KitchenController::class => InvokableFactory::class,
         ],
     ],
 
@@ -84,6 +122,10 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        //Configure for restful-services
+        'strategies'               => [
+            'ViewJsonStrategy'
         ],
     ],
 ];

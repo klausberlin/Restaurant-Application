@@ -1,9 +1,4 @@
 <?php
-/**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
 namespace Application\Controller;
 
@@ -57,35 +52,41 @@ class IndexController extends AbstractActionController
                 $adapter->setIdentity($username); //username
                 $adapter->setCredential($password); //password
 
+                $columnsToReturn = [
+                    'role',
+                ];
                 $result = $this->authService->authenticate();
-
+                $role = $adapter->getResultRowObject($columnsToReturn)->role;
+             //   print_r($role);
+             //   exit;
                 if (!$result->isValid()) {
                     // Authentication failed;
                     // print the reasons why:
                     echo "Bitte überprüfen sie Benutzername oder Password";
 
                 } else {
-
-                    if($worker === '0'){
-
+                    echo "logged";
+                    if($role == 'Waitress'){
                         var_dump('Kellner');
-                        $this->redirect()->toRoute('dashboard',['action'=>'waitress']);
+                        $this->redirect()->toRoute('dashboard');
 
+                    }elseif($role == 'Kitchen'){
+                        var_dump('');
+                        $this->redirect()->toRoute('dashboard');
 
-                    }else{
-                        var_dump('Küche');
-                        $this->redirect()->toRoute('dashboard',['action'=>'kitchen']);
+                    }elseif($role == 'Manager') {
+                        var_dump('MANAGER');
+                        $this->redirect()->toRoute('dashboard');
+
 
                     }
-
-                    // Authentication succeeded;
-                    // the identity ($username) is stored in the session:
-//                    $this->authService->getIdentity();
-
                 }
+                //TEST
+                // Authentication succeeded;
+                // the identity ($username) is stored in the session:
+                //$this->authService->getIdentity();
             }
         }
-
         return new ViewModel([
             'form'=>$form,
             'users'=>$this->authService->getStorage(),

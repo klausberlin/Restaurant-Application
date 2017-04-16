@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pawel_000
- * Date: 13.03.2017
- * Time: 15:53
- */
 
-namespace Application\Factory;
+namespace Application\Factory\Adapter;
 
 
 
@@ -38,9 +32,6 @@ class AuthenticationServiceFactory implements FactoryInterface
                 'name',
                 'password'
         );
-
-//        $sessionManager = $sm->get(SessionManager::class);
-//        $authStorage = new SessionStorage('Zend_Auth', 'session', $sessionManager);
 
         //create the service and inject dependencies into its constructor
         return new AuthenticationService(null, $authAdapter);

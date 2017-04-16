@@ -7,8 +7,8 @@
 
 namespace Application;
 
-use Application\Factory\AuthenticationServiceFactory;
-use Zend\Authentication\AuthenticationService;
+use Application\Factory\Adapter\AuthenticationServiceFactory;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\MvcEvent;
@@ -28,19 +28,10 @@ class Module implements ConfigProviderInterface
             'factories' => [
                 'authentication' => AuthenticationServiceFactory::class,
             ],
+            'aliases' =>[
+                'dbcon' => AdapterInterface::class,
+            ]
         ];
     }
-//    public function onBootstrap(EventInterface $e) {
-//        /** @var MvcEvent $e */
-//        $application = $e->getApplication();
-//        $application->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, function(MvcEvent $e) use ($application) {
-//            /** @var AuthenticationService $authService */
-//            $authService = $application->getServiceManager()->get('authentication');
-//            $hasIdentity = $authService->hasIdentity();
-//            $identity = $authService->getIdentity();
-//            return;
-//        }, 100);
-//        return;
-//    }
 
 }
