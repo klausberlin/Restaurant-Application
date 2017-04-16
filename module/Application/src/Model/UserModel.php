@@ -21,6 +21,7 @@ class UserModel implements UserInterface
         $this->_table = new Sql($this->_dbConnection, 'users');
     }
 
+    //get users by name
     public function getUserByName($username)
     {
         $select = $this->_table->select();
@@ -30,6 +31,17 @@ class UserModel implements UserInterface
         $result = $stmt->execute();
         return $result;
     }
+
+    //get all users for admin Dashboard
+    public function getAllUsers(){
+
+        $select = $this->_table->select()->where(["role"=>"Waitress"]);
+        $stmt = $this->_table->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+        return $result;
+
+    }
+    //mock data for rest client
     public function getJson()
     {
 

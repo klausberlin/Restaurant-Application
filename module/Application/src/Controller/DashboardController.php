@@ -53,7 +53,12 @@ class DashboardController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel();
+        $getUsers = $this->_interface->getAllUsers();
+
+
+        return new ViewModel([
+            'allUsers'=>$getUsers,
+        ]);
     }
 
     public function userAction()

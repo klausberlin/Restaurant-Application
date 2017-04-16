@@ -11,4 +11,7 @@ Interface UserInterface
 {
     public function getUserByName($username);
     public function getJson();
+    public function getAllUsers();
+
+
 }
