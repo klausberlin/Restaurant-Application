@@ -45,21 +45,21 @@
                                 <li><a href="<?= $this->url('dashboard',['action'=>'menu']) ?>">Speisekarte</a></li>
                                 <li><a href="<?= $this->url('dashboard',['action'=>'user']) ?>">Kellner</a></li>
                             <?php endif;?>
-                            <li><a href="<?= $this->url('application',['action'=>'logout']) ?>">Logout</a></li>
-
-
-
-                        <?php endif;?>
                     </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="push-right"><a href="<?= $this->url('application',['action'=>'logout']) ?>">Logout</a></li>
+                    </ul>
+                    <?php endif;?>
+
                 </div>
             </div>
         </nav>
         <div class="container">
             <?= $this->content ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?= date('Y') ?> by John Doe Ltd. All rights reserved.</p>
-            </footer>
+           <!-- <hr>-->
+            <!--<footer>
+                <p>&copy; 2005 - <?/*= date('Y') */?> by John Doe Ltd. All rights reserved.</p>
+            </footer>-->
         </div>
         <?= $this->inlineScript() ?>
     </body>

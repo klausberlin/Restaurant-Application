@@ -1,1 +1,161 @@
-waitress
+
+
+
+
+
+
+<div class="jumbotron text-center">
+    <h1>Menu</h1>
+</div>
+
+<!-- Nav tabs -->
+<div class="container">
+    <ul class="nav nav-tabs">
+        <?php foreach($category as $categories):?>
+            <li><a data-toggle="tab" class="<?php print_r($categories['id']);?>" href="#<?php print_r($categories['id']);?>"><?php print_r($categories['name']);?></a></li>
+        <?php endforeach;?>
+    </ul>
+
+
+    <div class="tab-content">
+        <?php //get the value of the tabs ?>
+        <?php foreach($category as $categories):?>
+            <div id="<?php print_r($categories['id']);?>" class="tab-pane fade in ">
+                <h3><?php print_r($categories['name']);?></h3>
+                <div class="table-responsive  col-xs-6">
+                    <table class="table table-hover">
+
+                        <tbody>
+                        <?php foreach($joinCategories as $joins):?>
+                            <?php if($joins['category'] == $categories['id']):?>
+                                <tr id="table_value" class="table-row-<?php print_r($joins['id'])?>" value="<?php print_r($joins['price'])?>">
+                                    <td>
+                                        <?php print_r($joins['name']);?>
+                                    </td>
+                                    <td>
+                                        <?php print_r($joins['price'])?>
+                                    </td>
+                                </tr>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                        </tbody>
+
+                    </table>
+                </div>
+                <p></p>
+            </div>
+        <?php endforeach;?>
+
+        <form method="post" class="col-xs-6 counter container">
+            <h2>Bestellungen</h2>
+            <div class="form-group">
+                <ul class="list-group" id="listen">
+                </ul>
+                <div><h3 class="money"></h3></div>
+                <div id="button" class="btn btn-default">Submit</div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div id="div1"><h2></h2></div>
+
+
+<script>
+    $(function(){
+
+        var i=0,fibonacci=0,value,minus_obj;
+
+        $( ".1" ).trigger('click');
+        $('.counter').hide();
+
+        //Menu
+        //select orders from menu
+        $( ".table" ).on('click','tr',function(e){
+            e.preventDefault();
+            $('.counter').show();
+            var class_id = $(this).attr('class');
+            value = $(this).attr('value');
+            fibonacci= parseFloat(fibonacci)+parseFloat(value);
+            $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
+
+            var id = $(this).text(),
+                li = "<li class='class_id_"+class_id+"' id='list-value-"+i+"-id' value='"+value+"'>"+id+"</li>";
+            //Now use appendChild and add it to the list!
+            $( "#listen" ).append(li);
+            i++;
+        });
+
+        //Bill
+        //show/hide/calculate order and money
+        $( '#listen' ).on('click','li',function(e){
+            $(e.target).remove();
+            minus_obj = $(this).attr('value');
+            if(minus_obj > fibonacci)
+            {
+                fibonacci = parseFloat(minus_obj) - parseFloat(fibonacci);
+            }
+            else if(minus_obj < fibonacci)
+            {
+                fibonacci =  parseFloat(fibonacci) - parseFloat(minus_obj);
+            }
+            else if(minus_obj = fibonacci)
+            {
+                fibonacci = 0;
+            }
+            if($('.money').html() == minus_obj){
+
+                $('.counter').hide();
+            }
+
+            $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
+        });
+
+        //POST Data
+        //post orders
+        var myArray = {}, j = 0;
+        $('#button').click(function(){
+
+            $(".list-group li").each(function(){
+                myArray[j++] = $(this).attr('class');
+            });
+            var jsonString= JSON.stringify(myArray);
+            //alert(myArray[0]);
+            /*             */
+
+            callApi('POST','/waitress-rest',jsonString);
+            $('.counter').submit();
+        });
+
+        /* var inter =  setInterval(function() {
+         var clearInter = setInterval(function() {
+
+         clearInterval(clearInter);
+         /!*alert("clear"+test);*!/
+         });
+         },5000);*/
+
+        function callApi(met,path,object) {
+
+            var method = met;
+            var url = path;
+            var data = object;
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                dataType: "json",
+                headers: {},
+                success: function(data) {
+                    alert(data);
+                },
+                error: function (data) {
+                    console.debug("Fail" + JSON.stringify(JSON.stringify(data)));
+                }
+            });
+        }
+
+    });
+</script>

@@ -1,58 +1,50 @@
-
-
-
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
                 Firstname
             </th>
-        </tr>
-        <tr>
+
             <th>
                 Lastname
             </th>
-        </tr>
-        <tr>
+
             <th>
                 Umsatz
             </th>
-        </tr>
-        <tr>
+
             <th>
                 Ändern
             </th>
-        </tr>
-        <tr>
+
             <th>
                 Löschen
             </th>
         </tr>
-
-
-
     </thead>
     <tbody>
+    <?php foreach($allUsers as $users):?>
         <tr>
             <td>
-
+                <?php print_r($users['name']);?>
             </td>
             <td>
-
+                <?php print_r($users['password']);?>
             </td>
             <td>
-
+                <?php print_r($users['role']);?>
+            </td>
+            <td>
+                <div class="btn btn-default">
+                    Change
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-default">
+                    Löschen
+                </div>
             </td>
         </tr>
+    <?php endforeach;?>
     </tbody>
-
-
-
-
 </table>
-<?php
-foreach($allUsers as $users){
-       print_r($users);
-};
-
-?>

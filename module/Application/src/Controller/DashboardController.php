@@ -55,7 +55,6 @@ class DashboardController extends AbstractActionController
     {
         $getUsers = $this->_interface->getAllUsers();
 
-
         return new ViewModel([
             'allUsers'=>$getUsers,
         ]);

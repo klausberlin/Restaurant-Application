@@ -55,6 +55,7 @@ class IndexController extends AbstractActionController
                 $columnsToReturn = [
                     'role',
                 ];
+
                 $result = $this->authService->authenticate();
                 $role = $adapter->getResultRowObject($columnsToReturn)->role;
              //   print_r($role);

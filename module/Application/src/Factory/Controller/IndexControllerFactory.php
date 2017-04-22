@@ -12,7 +12,6 @@ namespace Application\Factory\Controller;
 
 use Application\Controller\IndexController;
 use Interop\Container\ContainerInterface;
-use Zend\Authentication\AuthenticationService;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class IndexControllerFactory implements FactoryInterface {

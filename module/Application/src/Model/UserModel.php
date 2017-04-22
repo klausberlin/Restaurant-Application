@@ -1,9 +1,5 @@
 <?php
-/**
- * User: 'Alice Doe'
- * Date: 31.03.2017
- * Time: 22:53
- */
+
 
 namespace Application\Model;
 
@@ -41,6 +37,16 @@ class UserModel implements UserInterface
         return $result;
 
     }
+
+
+
+
+
+
+
+
+
+
     //mock data for rest client
     public function getJson()
     {

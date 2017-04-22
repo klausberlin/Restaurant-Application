@@ -74,6 +74,15 @@ return [
                     ],
                 ],
             ],
+            'waitress-rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/waitress-rest[/:id]',
+                    'defaults' => [
+                        'controller' => Controller\WaitressRestController::class,
+                    ],
+                ],
+            ],
 
             'application' => [
                 'type'    => Segment::class,
@@ -92,9 +101,11 @@ return [
         'factories' => [
             AuthenticationService::class => Application\Factory\Adapter\AuthenticationServiceFactory::class,
             Application\Model\UserModel::class => Application\Factory\Model\DbDataFactory::class,
+            Application\Model\DataModel::class => Application\Factory\Model\DataModelFactory::class,
         ],
         'aliases' => [
             Model\UserInterface::class => Model\UserModel::class,
+            Model\DataInterface::class => Model\DataModel::class,
         ],
     ],
     'controllers' => [
@@ -102,7 +113,8 @@ return [
             Controller\IndexController::class => IndexControllerFactory::class,
             Controller\DashboardController::class => DashboardControllerFactory::class,
             Controller\KitchenRestController::class => Application\Factory\Controller\KitchenRestFactory::class,
-            Controller\WaitressController::class => InvokableFactory::class,
+            Controller\WaitressRestController::class => Application\Factory\Controller\WaitressRestFactory::class,
+            Controller\WaitressController::class => Application\Factory\Controller\WaitressControllerFactory::class,
             Controller\KitchenController::class => InvokableFactory::class,
         ],
     ],
