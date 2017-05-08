@@ -2,14 +2,12 @@
 
 
 
-
-
 <div class="jumbotron text-center">
-    <h1>Menu</h1>
+    <h1 class="table-location">Menu</h1>
 </div>
 
 <!-- Nav tabs -->
-<div class="container">
+<div class="container choose-article">
     <ul class="nav nav-tabs">
         <?php foreach($category as $categories):?>
             <li><a data-toggle="tab" class="<?php print_r($categories['id']);?>" href="#<?php print_r($categories['id']);?>"><?php print_r($categories['name']);?></a></li>
@@ -45,89 +43,134 @@
                 <p></p>
             </div>
         <?php endforeach;?>
-
-        <form method="post" class="col-xs-6 counter container">
+        <!--changed from FORM-->
+        <div class="col-xs-6 counter container">
             <h2>Bestellungen</h2>
             <div class="form-group">
                 <ul class="list-group" id="listen">
+                    <!--GET SELECTED ORDERS -->
                 </ul>
                 <div><h3 class="money"></h3></div>
-                <div id="button" class="btn btn-default">Submit</div>
+                <button id="button-submit-order" class="btn btn-default">Submit</button>
             </div>
-        </form>
-
+        </div>
     </div>
 </div>
 
-<div id="div1"><h2></h2></div>
+<?php foreach($tables as $table):?>
+    <div class="but col-xs-3">
+        <button class="btn btn-default" id="<?php print_r($table['id'])?>" value="<?php print_r($table['name'])?>">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <?php print_r($table['name'])?>
+        </button>
+    </div>
+<?php endforeach;?>
+
+
+
 
 
 <script>
     $(function(){
 
-        var i=0,fibonacci=0,value,minus_obj;
+       /* $('.select-table').hide();*/
 
-        $( ".1" ).trigger('click');
-        $('.counter').hide();
+        //////////////////////
+        //Hide, first choose the table
+        /////////////////////
+        $('.choose-article').hide();
 
-        //Menu
-        //select orders from menu
-        $( ".table" ).on('click','tr',function(e){
+        $( ".but" ).on('click','button',function(e){
             e.preventDefault();
-            $('.counter').show();
-            var class_id = $(this).attr('class');
-            value = $(this).attr('value');
-            fibonacci= parseFloat(fibonacci)+parseFloat(value);
-            $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
+            var table_id = $(this).attr('id');
+            var table_name = $(this).attr('value');
+            //alert(table_id);
 
-            var id = $(this).text(),
-                li = "<li class='class_id_"+class_id+"' id='list-value-"+i+"-id' value='"+value+"'>"+id+"</li>";
-            //Now use appendChild and add it to the list!
-            $( "#listen" ).append(li);
-            i++;
-        });
+            $(".but").hide();
+            $('.choose-article').show();
+            $('.table-location').html(table_name);
 
-        //Bill
-        //show/hide/calculate order and money
-        $( '#listen' ).on('click','li',function(e){
-            $(e.target).remove();
-            minus_obj = $(this).attr('value');
-            if(minus_obj > fibonacci)
-            {
-                fibonacci = parseFloat(minus_obj) - parseFloat(fibonacci);
-            }
-            else if(minus_obj < fibonacci)
-            {
-                fibonacci =  parseFloat(fibonacci) - parseFloat(minus_obj);
-            }
-            else if(minus_obj = fibonacci)
-            {
-                fibonacci = 0;
-            }
-            if($('.money').html() == minus_obj){
+        /////////////////////////////////////
 
-                $('.counter').hide();
-            }
+            var i=0,fibonacci=0,value,minus_obj;
 
-            $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
-        });
+            $( ".1" ).trigger('click');
+            $('.counter').hide();
 
-        //POST Data
-        //post orders
-        var myArray = {}, j = 0;
-        $('#button').click(function(){
+            //Menu
+            //select orders from menu
+            $( ".table" ).on('click','tr',function(e){
+                e.preventDefault();
+                $('.counter').show();
+                var class_id = $(this).attr('class');
+                value = $(this).attr('value');
+                fibonacci= parseFloat(fibonacci)+parseFloat(value);
+                $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
 
-            $(".list-group li").each(function(){
-                myArray[j++] = $(this).attr('class');
+                var id = $(this).text(),
+                    li = "<li class='class_id_"+class_id+"' id='list-value-"+i+"-id' value='"+value+"'>"+id+"</li>";
+                //Now use appendChild and add it to the list!
+                $( "#listen" ).append(li);
+                i++;
             });
-            var jsonString= JSON.stringify(myArray);
-            //alert(myArray[0]);
-            /*             */
 
-            callApi('POST','/waitress-rest',jsonString);
-            $('.counter').submit();
+            //Bill
+            //show/hide/calculate order and money
+            $( '#listen' ).on('click','li',function(e){
+                $(e.target).remove();
+                minus_obj = $(this).attr('value');
+                if(minus_obj > fibonacci)
+                {
+                    fibonacci = parseFloat(minus_obj) - parseFloat(fibonacci);
+                }
+                else if(minus_obj < fibonacci)
+                {
+                    fibonacci =  parseFloat(fibonacci) - parseFloat(minus_obj);
+                }
+                else if(minus_obj = fibonacci)
+                {
+                    fibonacci = 0;
+                }
+                if($('.money').html() == minus_obj){
+
+                    $('.counter').hide();
+                }
+
+                $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
+            });
+
+            //POST Data
+            //post orders
+            var myArray = {}, j = 0,
+            jsonString = {};
+            var waitress_table={};
+            $('#button-submit-order').click(function(){
+
+                //current table & waitress name
+                var getTableName = $('.table-location').html(),
+                getWaitressName = '<?php print_r($this->identity())?>';
+
+
+                //get all orders
+                $(".list-group li").each(function(){
+                    myArray['order'+j++] = $(this).attr('class');
+                });
+
+                //convert all orders to JSON
+                //jsonString['orders'] = JSON.stringify(myArray);
+                waitress_table[getWaitressName] = getTableName;
+                waitress_table['orders'] = JSON.stringify(myArray);
+
+                /*alert(myArray[0]);*/
+                /*alert(jsonString['orders']);*/
+
+                callApi('POST','/waitress-rest',waitress_table);
+
+                $('.counter').submit();
+            });
+
         });
-
+        //
         /* var inter =  setInterval(function() {
          var clearInter = setInterval(function() {
 

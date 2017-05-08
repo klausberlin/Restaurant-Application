@@ -37,16 +37,17 @@ class WaitressController extends AbstractActionController
     {
         $getCategory = $this->_dbInterface->getCategories();
         $jointest = $this->_dbInterface->getjoins();
+        $getTables = $this->_dbInterface->getTables();
 
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
-            print_r($data);
+           // print_r($data);
         }
-
 
         return new ViewModel([
             'category' => $getCategory,
             'joinCategories' => $jointest,
+            'tables' => $getTables,
         ]);
 
     }

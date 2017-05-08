@@ -13,5 +13,4 @@ Interface UserInterface
     public function getJson();
     public function getAllUsers();
 
-
 }
