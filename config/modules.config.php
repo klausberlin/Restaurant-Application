@@ -16,13 +16,14 @@ return [
     'Zend\Mvc\Plugin\Prg',
     'Zend\Mvc\Plugin\Identity',
     'Zend\Session',
-    'Zend\I18n',
+//    'Zend\I18n',
+    'Zend\Db',
     'Zend\Form',
     'Zend\InputFilter',
     'Zend\Filter',
     'Zend\Hydrator',
     'Zend\Router',
     'Zend\Validator',
-    'Zend\Db',
+
     'Application',
 ];

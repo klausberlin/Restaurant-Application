@@ -89,7 +89,7 @@ class WaitressRestController extends AbstractRestfulController
         /*
          * TODO
          * 1. Insert VALUES (users_id, tables_id, totalprice) into Table orders
-         * 2. Get the last ID form orders to insert it to table foodorders to build a conncetion between foodorders and orders
+         * 2. Get the last ID form orders to insert it to table foodorders to build a connection between foodorders and orders
          * 3. Loop over orders we get from the view and insert it to food orders with the the last id from orders
          * */
 
@@ -127,7 +127,7 @@ class WaitressRestController extends AbstractRestfulController
             }*/
         }
 
-        exit;
+//        exit;
         foreach($data as $orders){
             $new=json_decode($orders);
             foreach($new as $key => $value){
