@@ -1,9 +1,4 @@
 <?php
-/**
- * User: Alice in wonderland
- * Date: 18.04.2017
- * Time: 23:37
- */
 
 namespace Application\Model;
 
@@ -18,5 +13,8 @@ interface DataInterface
     public function insertOrders($userId,$tableId,$totalPrice);
     public function getUsers($username);
     public function getMax();
+    public function insertFoodorders($itemId, $tableID, $orderId);
+    public function getAllFoodorders();
+    public function updateFoodordersStatus($itemId, $statusId);
 
 }

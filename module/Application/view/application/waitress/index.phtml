@@ -1,7 +1,3 @@
-
-
-
-
 <div class="jumbotron text-center">
     <h1 class="table-location">Menu</h1>
 </div>
@@ -13,7 +9,6 @@
             <li><a data-toggle="tab" class="<?php print_r($categories['id']);?>" href="#<?php print_r($categories['id']);?>"><?php print_r($categories['name']);?></a></li>
         <?php endforeach;?>
     </ul>
-
 
     <div class="tab-content">
         <?php //get the value of the tabs ?>
@@ -43,21 +38,29 @@
                 <p></p>
             </div>
         <?php endforeach;?>
-        <!--changed from FORM-->
+
         <div class="col-xs-6 counter container">
             <h2>Bestellungen</h2>
             <div class="form-group">
                 <ul class="list-group" id="listen">
                     <!--GET SELECTED ORDERS -->
                 </ul>
-                <div><h3 class="money"></h3></div>
-                <button id="button-submit-order" class="btn btn-default">Submit</button>
+                <div>
+                    <h3 class="money"></h3>
+                    <input type="hidden" class="sum">
+                </div>
+
+<!--                <form method="post">-->
+                    <button id="button-submit-order" class="btn btn-default">Submit</button>
+<!--                </form>-->
+
             </div>
         </div>
     </div>
 </div>
 
-<?php foreach($tables as $table):?>
+<?php //show all tables
+    foreach($tables as $table):?>
     <div class="but col-xs-3">
         <button class="btn btn-default" id="<?php print_r($table['id'])?>" value="<?php print_r($table['name'])?>">
             <i class="fa fa-users" aria-hidden="true"></i>
@@ -73,26 +76,31 @@
 <script>
     $(function(){
 
-//       $('.select-table').hide();
-
-        //////////////////////
-        //Hide, first choose the table
-        /////////////////////
+        ///////////////////////////////////////////
+        //
+        //At first choose the table, before you can select the order
+        //
+        //////////////////////////////////////////
         $('.choose-article').hide();
+
 
         $( ".but" ).on('click','button',function(e){
             e.preventDefault();
+
+            //Get selected table name,id to show which table the waitress selected
             var table_id = $(this).attr('id');
             var table_name = $(this).attr('value');
-            //alert(table_id);
 
+            $('.table-location').html(table_id);
             $(".but").hide();
             $('.choose-article').show();
-            $('.table-location').html(table_name);
+            //
 
-        /////////////////////////////////////
-
-            var i=0,fibonacci=0,value,minus_obj;
+            //
+            var i=0;
+            var fibonacci=0;
+            var value;
+            var minus_obj;
 
             $( ".1" ).trigger('click');
             $('.counter').hide();
@@ -106,9 +114,9 @@
                 value = $(this).attr('value');
                 fibonacci= parseFloat(fibonacci)+parseFloat(value);
                 $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
-
-                var id = $(this).text(),
-                    li = "<li class='class_id_"+class_id+"' id='list-value-"+i+"-id' value='"+value+"'>"+id+"</li>";
+                $( '.sum' ).attr('value', parseFloat(fibonacci).toFixed(2));
+                var id = $(this).text();
+                var li = "<li class='class_id_"+class_id+"' id='list-value-"+i+"-id' value='"+value+"'>"+id+"</li>";
                 //Now use appendChild and add it to the list!
                 $( "#listen" ).append(li);
                 i++;
@@ -118,7 +126,9 @@
             //show/hide/calculate order and money
             $( '#listen' ).on('click','li',function(e){
                 $(e.target).remove();
+
                 minus_obj = $(this).attr('value');
+
                 if(minus_obj > fibonacci)
                 {
                     fibonacci = parseFloat(minus_obj) - parseFloat(fibonacci);
@@ -126,6 +136,7 @@
                 else if(minus_obj < fibonacci)
                 {
                     fibonacci =  parseFloat(fibonacci) - parseFloat(minus_obj);
+
                 }
                 else if(minus_obj = fibonacci)
                 {
@@ -137,40 +148,50 @@
                 }
 
                 $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
+                $( '.sum' ).attr('value', parseFloat(fibonacci).toFixed(2));
+
             });
 
             //POST Data
             //post orders
-            var myArray = {}, j = 0,
-            jsonString = {};
-            var waitress_table={};
+
+            var orderInformation={};
+
             $('#button-submit-order').click(function(){
+                var j = 1;
+                //All selected order saved in object
+                var thisOrders = {};
 
-                //current table & waitress name
-                var getTableName = $('.table-location').html(),
-                getWaitressName = '<?php print_r($this->identity())?>';
+                //current selected table
+                var getTableName = $('.table-location').html();
 
+                var orderPrice =  $( '.sum' ).val();
+
+
+                //current waitress-name
+                var getWaitressName = '<?php print_r($this->identity())?>';
 
                 //get all orders
                 $(".list-group li").each(function(){
-                    myArray['order'+j++] = $(this).attr('class');
+                    thisOrders['article'+ j++] = $(this).attr('class');
                 });
 
-                //convert all orders to JSON
-                //jsonString['orders'] = JSON.stringify(myArray);
-                waitress_table[getWaitressName] = getTableName;
-                waitress_table['orders'] = JSON.stringify(myArray);
+                orderInformation['TableId'] = getTableName;
+                orderInformation['UserName'] = getWaitressName;
+                orderInformation['OrderPrice'] = orderPrice;
+                orderInformation['SelectedArticles'] = thisOrders;
 
-                /*alert(myArray[0]);*/
-                /*alert(jsonString['orders']);*/
+                console.log(orderInformation);
 
-                callApi('POST','/waitress-rest',waitress_table);
+                callApi('POST','/waitress-rest',orderInformation);
 
                 $('.counter').submit();
+
             });
 
         });
-        //
+
+        //get automatically the data from restful
         /* var inter =  setInterval(function() {
          var clearInter = setInterval(function() {
 
@@ -179,6 +200,7 @@
          });
          },5000);*/
 
+        
         function callApi(met,path,object) {
 
             var method = met;

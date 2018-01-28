@@ -38,15 +38,6 @@ class UserModel implements UserInterface
 
     }
 
-
-
-
-
-
-
-
-
-
     //mock data for rest client
     public function getJson()
     {

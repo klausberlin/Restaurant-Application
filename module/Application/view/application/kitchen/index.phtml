@@ -1,13 +1,118 @@
 kitchen
 <div id="div1"><h2></h2></div>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>Eingang</th>
+            <th>In Bearbeitung</th>
+            <th>Abholen </th>
+        </tr>
+    </thead>
+    <tbody id="table_body">
+    </tbody>
+</table>
 
 <script>
-    var inter =  setInterval(function() {
-        var clearInter = setInterval(function() {
-            $("#div1").load("/kitchen-rest");
-            clearInterval(clearInter);
-            /*alert("clear"+test);*/
+    $(document).ready(function() {
+        var ajaxCall = function() {
+            $.ajax({
+                type: 'get',
+                url: '/kitchen-rest',
+                success: function(data) {
+                    var str = "";
+                    var status;
+                    data.forEach(function(item){
+
+                        switch(item.statusId) {
+
+                            case '0':
+
+                                str += '<tr class="close-food" id="' + item.statusId + '">';
+                                str += '<td class="' + item.itemId + '">' +
+                                    'Bestellnummer:' + item.orderId +
+                                    '<br> Tisch: ' + item.tableId +
+                                    '<br> Bestellung: ' + item.item.name +
+                                    '</td>';
+
+                                str += '</tr>';
+
+                                break;
+
+                            case '1':
+
+                                str += '<tr class="close-food" id="' + item.statusId + '">';
+                                str += '<td class="'+ item.itemId +'"></td>';
+                                str += '<td class="' + item.itemId + '">' +
+                                    'Bestellnummer:' + item.orderId +
+                                    '<br> Tisch: ' + item.tableId +
+                                    '<br> Bestellung: ' + item.item.name +
+                                    '</td class="' + item.itemId + '">';
+
+                                str += '</tr>';
+
+                                break;
+
+                            case '2':
+
+
+                                str += '<tr class="close-food" id="' + item.statusId + '">';
+                                str += '<td class="'+ item.itemId +'"></td>';
+                                str += '<td class="' + item.itemId + '">' ;
+                                str += '<td class="' + item.itemId + '">' +
+                                    'Bestellnummer:' + item.orderId +
+                                    '<br> Tisch: ' + item.tableId +
+                                    '<br> Bestellung: ' + item.item.name +
+                                    '</td class="' + item.itemId + '">';
+
+                                str += '</tr>';
+
+
+                                break;
+                        }
+
+
+
+                        $('#table_body').html(str);
+                    });
+                }
+            });
+        };
+        setInterval(ajaxCall, 3000);
+
+
+
+
+        $(document).on('click','.close-food', function(){
+
+            $(this).hide();
+           // alert(this.id);
+            var itemId = this.childNodes[0].className,
+            statusId = this.id,
+
+            objectStats = {
+                'id' : itemId,
+                'status_id' : statusId
+            };
+//            alert(statusId);
+           // alert(JSON.stringify(objectId));
+            postData(objectStats);
         });
-    },5000);
+
+        function postData(orderId){
+
+            $.ajax({
+                type: 'POST',
+                url: '/kitchen-rest',
+                data: orderId,
+                dataType: "json",
+                success: function(orderId) {
+                    console.log("200");
+                },
+                error: function (orderId) {
+                    console.debug("Fail" + JSON.stringify(orderId));
+                }
+
+            });
+        }
+    });
 </script>

@@ -111,7 +111,7 @@ class DataModel implements DataInterface
         return $return;
     }
     //insert data to table 'orders'
-    public function insertOrders($userId,$tableId,$totalPrice)
+    public function insertOrders($userId, $tableId, $totalPrice)
     {
         $insert = $this->_orders->insert();
         $insert->values(['user_id' => $userId,'table_id' => $tableId,'totalprice' => $totalPrice]);
@@ -119,6 +119,7 @@ class DataModel implements DataInterface
         $return = $stmt->execute();
         return $return;
     }
+
     //get all data from table 'users' where =username
     public function getUsers($username)
     {
@@ -128,8 +129,8 @@ class DataModel implements DataInterface
         $result = $category->execute();
         return $result;
     }
-    //
 
+    //
     public function getMax()
     {
         $select = $this->_orders->select();
@@ -139,12 +140,55 @@ class DataModel implements DataInterface
         return $return;
     }
 
+
+    /**
+     * Foodorders Options
+     *
+     * @param $itemId
+     * @param $tableID
+     * @param $orderId
+     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     */
     public function insertFoodorders($itemId, $tableID, $orderId)
     {
-        $insert = $this->_foodorders->insert(['item_id' => $itemId,'table_id' => $tableID,'order_id' => $orderId]);
+        $insert = $this->_foodorders->insert();
+        $insert->values(['item_id' => $itemId,'table_id' => $tableID,'order_id' => $orderId]);
         $stmt = $this->_foodorders->prepareStatementForSqlObject($insert);
         $return = $stmt->execute();
         return $return;
 
     }
+
+    public function getAllFoodorders(){
+
+        $select = $this->_foodorders->select();
+        $foodorders = $this->_foodorders->prepareStatementForSqlObject($select);
+        $return = $foodorders->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+        $return = $resultSet->toArray();
+
+        return $return;
+    }
+
+    public function updateFoodordersStatus($itemId, $statusId)
+    {
+        $update = $this->_foodorders->update();
+        $update->where(['id' => $itemId]);
+        $update->set(['status_id' => $statusId]);
+
+        $foodorders = $this->_foodorders->prepareStatementForSqlObject($update);
+        $return = $foodorders->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+        $return = $resultSet->toArray();
+
+//        return $return;
+    }
+
+
 }

@@ -16,7 +16,6 @@ use Zend\View\Model\ViewModel;
 
 class WaitressController extends AbstractActionController
 {
-
     private $authService;
     private $_dbInterface;
 

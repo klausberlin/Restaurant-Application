@@ -1,22 +1,16 @@
 <?php
-/**
- * User: Alice in wonderland
- * Date: 05.04.2017
- * Time: 16:15
- */
+namespace Application\Factory\Model;
 
-namespace Application\Factory\Controller;
-
-
-use Application\Controller\KitchenRestController;
-use Application\Model\DataInterface;
+use Application\Model\DataModel;
+use Application\Model\KitchenMethod;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class KitchenRestFactory implements FactoryInterface
+
+class KitchenMethodsFactory implements FactoryInterface
 {
 
     /**
@@ -31,10 +25,9 @@ class KitchenRestFactory implements FactoryInterface
      *     creating a service.
      * @throws ContainerException if any other error occurs
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $sm, $requestedName, array $options = null)
     {
-        $sm = $container->get(DataInterface::class);
-
-        return new KitchenRestController($sm);
+        $service = $sm->get(DataModel::class);
+        return new KitchenMethod($service);
     }
 }
