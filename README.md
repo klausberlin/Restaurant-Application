@@ -32,11 +32,11 @@ The skeleton ships with zf-development-mode by default, and provides three alias
 
 <code>
 
-$ composer development-enable  # enable development mode 
+$ composer development-enable   
 
-$ composer development-disable # enable development mode
+$ composer development-disable
 
-$ composer development-status  # whether or not development mode is enabled 
+$ composer development-status 
 
 </code>
 
@@ -51,9 +51,9 @@ virtual host
 
     ServerName zf2-app.localhost
 
-DocumentRoot /path/to/zf2-app/public
+DocumentRoot /path/to/z3-app/public
 
-<Directory /path/to/zf2-app/public>
+<Directory /path/to/zf3-app/public>
 
     DirectoryIndex index.php
     
