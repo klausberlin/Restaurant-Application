@@ -30,7 +30,6 @@ $ composer create-project -sdev zendframework/skeleton-application path/to/insta
 
 The skeleton ships with zf-development-mode by default, and provides three aliases for consuming the script it ships with:
 
-<code>
 
 $ composer development-enable   
 
@@ -38,15 +37,14 @@ $ composer development-disable
 
 $ composer development-status 
 
-</code>
+
 
 
 Web server setup
 Apache setup
 virtual host 
 
-
-<code>
+<pre>
 <VirtualHost *:80>
 
     ServerName zf2-app.localhost
@@ -72,4 +70,4 @@ DocumentRoot /path/to/z3-app/public
  </Directory>
 
 </VirtualHost>
-</code>
+</pre>
