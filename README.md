@@ -30,12 +30,13 @@ $ composer create-project -sdev zendframework/skeleton-application path/to/insta
 
 The skeleton ships with zf-development-mode by default, and provides three aliases for consuming the script it ships with:
 
-
+<pre>
 $ composer development-enable   
 
 $ composer development-disable
 
 $ composer development-status 
+</pre>
 
 
 
