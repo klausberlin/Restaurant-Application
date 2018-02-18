@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 
+use Application\Model\DataInterface;
 use Application\Model\UserInterface;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -17,14 +18,16 @@ class DashboardController extends AbstractActionController
     private $_username;
     private $_interface;
     private $_user;
+    private $dataInterface;
 
     //DI Database
-    public function __construct(UserInterface $user_interface)
+    public function __construct(UserInterface $user_interface, DataInterface $dataInterface)
     {
         $this->authService = new AuthenticationService;
         $this->_username = $this->authService->getIdentity();
         $this->_interface = $user_interface;
         $user = $this->_interface->getUserByName($this->_username);
+        $this->dataInterface = $dataInterface;
 
         foreach($user as $userRole){
             $this->_user = $userRole['role'];
@@ -41,7 +44,7 @@ class DashboardController extends AbstractActionController
         //check role of identity to verify the existing user to the dashboard
         foreach($username as $userRole){
             $role = $userRole['role'];
-            if($role==='Waitress'){
+            if($role === 'Waitress'){
                 $this->redirect()->toRoute('waitress');
             }
             elseif($role==='Kitchen'){
@@ -67,6 +70,12 @@ class DashboardController extends AbstractActionController
 
     public function menuAction()
     {
-        return new ViewModel();
+        $request = $this->getRequest();
+        $data = $request->getPost();
+
+        return new ViewModel([
+            'categories' => $this->dataInterface->getCategories(),
+            'items' => $this->dataInterface->getItems()
+        ]);
     }
 }

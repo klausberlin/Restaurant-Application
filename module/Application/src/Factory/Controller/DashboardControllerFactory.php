@@ -10,6 +10,7 @@ namespace Application\Factory\Controller;
 
 
 use Application\Controller\DashboardController;
+use Application\Model\DataModel;
 use Application\Model\UserModel;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -35,7 +36,8 @@ class DashboardControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $serviceManager, $requestedName, array $options = null)
     {
         $AuthService = $serviceManager->get(UserModel::class);
+        $dataModel = $serviceManager->get(DataModel::class);
 
-        return new DashboardController($AuthService);
+        return new DashboardController($AuthService,$dataModel);
     }
 }

@@ -48,7 +48,10 @@ class DataModel implements DataInterface
         $select = $this->_items->select();
         $items = $this->_items->prepareStatementForSqlObject($select);
         $result = $items->execute();
-        return $result;
+        $resultSet = new ResultSet();
+        $resultSet->initialize($result);
+        $results = $resultSet->toArray();
+        return $results;
     }
     //get all data from table 'categories'
     public function getCategories()

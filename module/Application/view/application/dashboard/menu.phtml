@@ -1,1 +1,82 @@
-menu
+<?php
+$item = array();
+?>
+
+<div class="row">
+    <?php foreach($categories as $category):?>
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-success">
+                <div class="page-header">
+                    <h4 style="text-align: center">
+                        <?= $category['name'] ?>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <?php foreach ($items as $item):?>
+                            <?php if($category['id'] == $item['category']):?>
+                            <li><?php echo $item['name'] ?></li>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                    </ul>
+                    <div class="form-group">
+                        <label for="admin"></label>
+                        <input type="text" class="form-control" id="admin" placeholder="insert/remove article">
+                    </div>
+                    <button class="pull-right btn btn-danger test"> - </button>
+                    <button class="pull-left btn btn-success "> + </button>
+                </div>
+            </div>
+        </div>
+    <?php endforeach;?>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="category"></label>
+                    <input type="text" class="form-control" id="category" placeholder="insert new category">
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-info">+ Add new category </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(function() {
+        //TODO finish ajax method with real data
+        //insert new value to view and at the same time also to the backend
+        
+
+
+
+
+        var data = 'id';
+
+        $('.test').click(function(){
+           postData(data);
+        });
+
+        function postData(data) {
+
+            $.ajax({
+                url: 'menu',
+                method: 'post',
+                dataType: 'json',
+                data: data,
+                success: function (data) {
+                    alert(data);
+                    console.log('working');
+                },
+                error: function (data) {
+                    console.log('not working');
+                }
+
+            });
+        }
+    });
+</script>
