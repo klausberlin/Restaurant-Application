@@ -2,7 +2,7 @@
 
 ## Theory
 
-The Restaurant - Application is an open source systerm for people who needs a order system for the restaurant.
+The Restaurant - Application is an open source project for everyone who needs an order system for the restaurant.
 
 This system is seperated into three view fields. 
 1. Manager
@@ -23,23 +23,11 @@ This system is seperated into three view fields.
 
 
 
-To create your new Zend Framework project:
-
-$ composer create-project -sdev zendframework/skeleton-application path/to/install
-
-
-The skeleton ships with zf-development-mode by default, and provides three aliases for consuming the script it ships with:
-
 <pre>
 $ composer development-enable   
-
 $ composer development-disable
-
 $ composer development-status 
 </pre>
-
-
-
 
 Web server setup
 Apache setup
