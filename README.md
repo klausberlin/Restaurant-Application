@@ -33,30 +33,3 @@ Web server setup
 Apache setup
 virtual host 
 
-<pre>
-<VirtualHost *:80>
-
-    ServerName zf2-app.localhost
-
-DocumentRoot /path/to/z3-app/public
-
-<Directory /path/to/zf3-app/public>
-
-    DirectoryIndex index.php
-    
-    AllowOverride All
-    
-    Order allow,deny
-    
-    Allow from all
-    
-    <IfModule mod_authz_core.c>
-    
-    Require all granted
-    
-    </IfModule>
-    
- </Directory>
-
-</VirtualHost>
-</pre>
