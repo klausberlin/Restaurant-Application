@@ -68,10 +68,57 @@ class DashboardController extends AbstractActionController
         return new ViewModel();
     }
 
+    /**
+     * Handle Data from admin/manager-page to insert or delete an item
+     * @return ViewModel
+     */
     public function menuAction()
     {
         $request = $this->getRequest();
-        $data = $request->getPost();
+        $response = $this->getResponse();
+
+        if($request->isPost()) {
+
+            $addPost = $this->params()->fromPost('add');
+            $deletePost = $this->params()->fromPost('delete');
+            $createPost = $this->params()->fromPost('create');
+
+
+
+            if($createPost){
+                if($createPost != ''){
+                    if(!empty($createPost)){
+
+                        $this->dataInterface->createCategory($createPost);
+                        $newCategory = $this->dataInterface->getLatestFromCategory();
+                        return $response->setContent(\Zend\Json\Json::encode($newCategory));
+                    }
+                }
+            }
+
+            if($addPost){
+                if(!empty($addPost)){
+                    $categoryId = $addPost['category_id'];
+                    $articleName = $addPost['article_name'];
+                    $articlePrice = $addPost['article_price'];
+
+                    $this->dataInterface->insertItems($categoryId,$articleName,$articlePrice);
+
+                    $latestItem = $this->dataInterface->getLatestItem();
+                    return $response->setContent(\Zend\Json\Json::encode($latestItem));
+                }
+            }
+
+
+            if($deletePost){
+                if(!empty($deletePost)){
+                    if(is_numeric($deletePost)){
+                        $this->dataInterface->removeSingleItem($deletePost);
+                    }
+                }
+            }
+        }
+
 
         return new ViewModel([
             'categories' => $this->dataInterface->getCategories(),

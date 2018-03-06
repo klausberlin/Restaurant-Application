@@ -1,7 +1,4 @@
-<?php
-$item = array();
-?>
-
+<?php $i = 0?>
 <div class="row">
     <?php foreach($categories as $category):?>
         <div class="col-xs-12 col-sm-6">
@@ -12,71 +9,144 @@ $item = array();
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <ul>
+                    <ul class="ul-id-<?=$category['id']?>">
                         <?php foreach ($items as $item):?>
                             <?php if($category['id'] == $item['category']):?>
-                            <li><?php echo $item['name'] ?></li>
+                                <li>
+                                    <?php echo $item['name'] ?> &nbsp; <?php echo $item['price'] ?>€
+                                    <button class="btn btn-sm btn-danger delete" id="delete<?=$item['id']?>"> - </button>
+                                </li>
                             <?php endif;?>
                         <?php endforeach;?>
                     </ul>
                     <div class="form-group">
-                        <label for="admin"></label>
-                        <input type="text" class="form-control" id="admin" placeholder="insert/remove article">
+                        <input type="text" class="form-control" id="name-<?= $i ?>" placeholder="Article-Name">
+                        <input type="number" class="form-control" id="price-<?= $i ?>" placeholder="Article-Price">
                     </div>
-                    <button class="pull-right btn btn-danger test"> - </button>
-                    <button class="pull-left btn btn-success "> + </button>
+                    <button class="pull-left btn btn-success cat-id-<?= $category['id'] ?>" id="add-<?= $i++ ?>"> + </button>
                 </div>
             </div>
         </div>
     <?php endforeach;?>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="category"></label>
-                    <input type="text" class="form-control" id="category" placeholder="insert new category">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="category"></label>
+                        <input type="text" class="form-control" id="category" placeholder="insert new category">
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-info add-new-category">+ Add new category </button>
                 </div>
             </div>
-            <div class="panel-footer">
-                <button class="btn btn-info">+ Add new category </button>
-            </div>
-        </div>
 
+        </div>
     </div>
-</div>
+
 <script>
     $(function() {
-        //TODO finish ajax method with real data
-        //insert new value to view and at the same time also to the backend
-        
+        var j = <?= $i ?>;
+
+        /**
+         * insert new item
+         */
+        for(var i = 0; i < j; i++) {
+            $('#add-'+i).click(function () {
+                var categoryId = this.className.slice(33);
+                var slicedId = this.id.slice(4);
+                if($('#name-'+slicedId).val().length > 0){
+                    if($('#price-'+slicedId).val().length > 0){
 
 
 
+//                        $('#price-'+slicedId).val()='';
 
-        var data = 'id';
 
-        $('.test').click(function(){
-           postData(data);
+                        var artcleName = $('#name-'+slicedId).val();
+                        var articlePrice = $('#price-'+slicedId).val();
+                        var data = {
+                            'add':{
+                                'category_id': categoryId,
+                                'article_name' : artcleName,
+                                'article_price' : articlePrice
+                                }
+                            };
+
+                        console.log(data);
+                        ajaxArticle(data);
+//                        $('#name-'+slicedId).val = '';
+
+                    }else {
+                        console.log("price can't be empty");
+                    }
+                }else {
+                    console.log("Input field can't be empty");
+                }
+//           postData(data);
+            });
+        }
+
+        /**
+         * delete item
+         */
+        $(document).on('click','.delete',function(event){
+            console.log( 'clicked', $( this ).text() );
+            this.closest('li').remove();
+            var $data = this.id.slice(6);
+            var data = {'delete' : $data};
+            ajaxArticle(data);
         });
 
-        function postData(data) {
 
+        $('.add-new-category').click(function(){
+            $innerVal = $('#category').val();
+            var data = {'create' :  $innerVal};
+            ajaxCategory(data);
+        });
+
+        /**
+         * POST for async data transfer
+         * @param data
+         */
+        function ajaxArticle(data) {
             $.ajax({
                 url: 'menu',
-                method: 'post',
+                type: 'post',
                 dataType: 'json',
                 data: data,
+                async: true,
                 success: function (data) {
-                    alert(data);
-                    console.log('working');
+                    var appendNewArticle = '<li>'+data[0].name +' &nbsp; '+ data[0].price+'€ <button class="btn btn-sm btn-danger delete" id="delete'+data[0].id+'">  - </button></li>';
+                    $('.ul-id-'+data[0].category).append(appendNewArticle);
                 },
-                error: function (data) {
+                error: function () {
+                    console.log('not working');
+                }
+
+            });
+        }
+
+        function ajaxCategory(data) {
+            $.ajax({
+                url: 'menu',
+                type: 'post',
+                dataType: 'json',
+                data: data,
+                async: true,
+                success: function (data) {
+                    console.log(data[0]);
+                },
+                error: function () {
                     console.log('not working');
                 }
 
             });
         }
     });
+
+
 </script>

@@ -16,5 +16,11 @@ interface DataInterface
     public function insertFoodorders($itemId, $tableID, $orderId);
     public function getAllFoodorders();
     public function updateFoodordersStatus($itemId, $statusId);
+    public function removeSingleItem($itemId);
+    public function insertItems($categoryId, $articleName, $articlePrice);
+    public function getLatestItem();
+    public function createCategory($categoryName);
+    public function removeCategory($id);
+    public function getLatestFromCategory();
 
 }

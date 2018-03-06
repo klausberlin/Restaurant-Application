@@ -99,6 +99,8 @@ class DataModel implements DataInterface
 
         return $return;
     }
+
+
     //get all data from table 'tables'
     public function getTables()
     {
@@ -190,8 +192,86 @@ class DataModel implements DataInterface
         $resultSet->initialize($return);
         $return = $resultSet->toArray();
 
-//        return $return;
     }
 
+    /**
+     * @param $itemId
+     */
+    public function removeSingleItem($itemId)
+    {
+        $delete = $this->_items->delete();
+        $delete->where(['id' => $itemId]);
+
+        $item = $this->_foodorders->prepareStatementForSqlObject($delete);
+        $return = $item->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+        $return = $resultSet->toArray();
+    }
+
+    /**
+     * @param $categoryId
+     * @param $articleName
+     * @param $articlePrice
+     */
+    public function insertItems($categoryId, $articleName, $articlePrice)
+    {
+        $insert = $this->_items->insert();
+        $insert->values(['name' => $articleName,'price' => $articlePrice,'category' => $categoryId]);
+        $stmt = $this->_items->prepareStatementForSqlObject($insert);
+        $stmt->execute();
+//        return $return;
+
+    }
+
+    public function getLatestItem()
+    {
+        $select = $this->_items->select();
+        $select->order('id DESC');
+        $select->limit(1);
+        $stmt = $this->_items->prepareStatementForSqlObject($select);
+        $return = $stmt->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+        $return = $resultSet->toArray();
+
+        return $return;
+    }
+
+    public function createCategory($categoryName)
+    {
+        $insert = $this->_category->insert();
+        $insert->values(['name' => $categoryName]);
+        $stmt = $this->_category->prepareStatementForSqlObject($insert);
+        $stmt->execute();
+
+    }
+
+    public function removeCategory($id)
+    {
+//        $insert = $this->_category->insert();
+//        $insert->values(['name' => $categoryName]);
+//        $stmt = $this->_category->prepareStatementForSqlObject($insert);
+//        $stmt->execute();
+    }
+
+    public function getLatestFromCategory()
+    {
+        $select = $this->_category->select();
+        $select->order('id DESC');
+        $select->limit(1);
+        $stmt = $this->_category->prepareStatementForSqlObject($select);
+        $return = $stmt->execute();
+
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+        $return = $resultSet->toArray();
+
+        return $return;
+    }
 
 }
