@@ -22,5 +22,6 @@ interface DataInterface
     public function createCategory($categoryName);
     public function removeCategory($id);
     public function getLatestFromCategory();
+    public function removeSingleFoodorderWithItemId($itemId);
 
 }

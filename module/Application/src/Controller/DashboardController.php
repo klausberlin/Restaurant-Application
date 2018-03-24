@@ -74,6 +74,8 @@ class DashboardController extends AbstractActionController
      */
     public function menuAction()
     {
+        $items = $this->dataInterface->getItems();
+
         $request = $this->getRequest();
         $response = $this->getResponse();
 
@@ -82,6 +84,7 @@ class DashboardController extends AbstractActionController
             $addPost = $this->params()->fromPost('add');
             $deletePost = $this->params()->fromPost('delete');
             $createPost = $this->params()->fromPost('create');
+            $deleteCategroy = $this->params()->fromPost('delete-category');
 
 
 
@@ -113,16 +116,34 @@ class DashboardController extends AbstractActionController
             if($deletePost){
                 if(!empty($deletePost)){
                     if(is_numeric($deletePost)){
+                        $this->dataInterface->removeSingleFoodorderWithItemId($deletePost);
                         $this->dataInterface->removeSingleItem($deletePost);
+                        return $response->setContent(\Zend\Json\Json::encode('{test:ets}'));
+                    }
+                }
+            }
+
+            if($deleteCategroy){
+                if(!empty($deleteCategroy)){
+                    if(is_numeric($deleteCategroy)){
+                        $this->dataInterface->removeCategory($deleteCategroy);
+                        return $response->setContent(\Zend\Json\Json::encode('delete category'));
                     }
                 }
             }
         }
 
+        foreach($items as $item){
+
+            $itemId[] = $item['id'];
+
+        }
+
 
         return new ViewModel([
             'categories' => $this->dataInterface->getCategories(),
-            'items' => $this->dataInterface->getItems()
+            'items' => $items,
+            'itemId' => $itemId
         ]);
     }
 }

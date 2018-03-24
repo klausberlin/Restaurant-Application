@@ -4,14 +4,17 @@
         <div class="col-xs-12 col-sm-6">
             <div class="panel panel-success">
                 <div class="page-header">
+                    <div class="alert alert-warning fadeout-warning-<?=$category['id']?>">bitte löschen sie vorerst alle Article in den Categorien bevor sie eine Category löschen</div>
+                    <button class="btn btn-sm btn-warning delete-category pull-right" id="delete_category_<?=$category['id']?>"> delete category </button>
                     <h4 style="text-align: center">
                         <?= $category['name'] ?>
                     </h4>
-                </div>
+                        </div>
                 <div class="panel-body">
                     <ul class="ul-id-<?=$category['id']?>">
                         <?php foreach ($items as $item):?>
                             <?php if($category['id'] == $item['category']):?>
+                                <?php $itemIdArr[] = $item['id']?>
                                 <li>
                                     <?php echo $item['name'] ?> &nbsp; <?php echo $item['price'] ?>€
                                     <button class="btn btn-sm btn-danger delete" id="delete<?=$item['id']?>"> - </button>
@@ -48,7 +51,9 @@
     </div>
 
 <script>
+    $('.alert-warning').hide();
     $(function() {
+
         var j = <?= $i ?>;
 
         /**
@@ -61,11 +66,6 @@
                 if($('#name-'+slicedId).val().length > 0){
                     if($('#price-'+slicedId).val().length > 0){
 
-
-
-//                        $('#price-'+slicedId).val()='';
-
-
                         var artcleName = $('#name-'+slicedId).val();
                         var articlePrice = $('#price-'+slicedId).val();
                         var data = {
@@ -75,18 +75,13 @@
                                 'article_price' : articlePrice
                                 }
                             };
-
-                        console.log(data);
-                        ajaxArticle(data);
-//                        $('#name-'+slicedId).val = '';
-
+                        ajaxAddArticle(data);
                     }else {
                         console.log("price can't be empty");
                     }
                 }else {
                     console.log("Input field can't be empty");
                 }
-//           postData(data);
             });
         }
 
@@ -94,11 +89,11 @@
          * delete item
          */
         $(document).on('click','.delete',function(event){
-            console.log( 'clicked', $( this ).text() );
+//            console.log( 'clicked', $( this ).text() );
             this.closest('li').remove();
             var $data = this.id.slice(6);
             var data = {'delete' : $data};
-            ajaxArticle(data);
+            ajaxRemoveArticle(data);
         });
 
 
@@ -106,19 +101,22 @@
             $innerVal = $('#category').val();
             var data = {'create' :  $innerVal};
             ajaxCategory(data);
+
         });
 
-        /**
-         * POST for async data transfer
-         * @param data
-         */
-        function ajaxArticle(data) {
+        $('.delete-category').click(function(){
+            var categoryId = this.id.slice(16);
+            var data = {'delete-category' : categoryId};
+            ajaxCategory(data);
+
+        });
+
+        function ajaxAddArticle(data) {
             $.ajax({
                 url: 'menu',
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                async: true,
                 success: function (data) {
                     var appendNewArticle = '<li>'+data[0].name +' &nbsp; '+ data[0].price+'€ <button class="btn btn-sm btn-danger delete" id="delete'+data[0].id+'">  - </button></li>';
                     $('.ul-id-'+data[0].category).append(appendNewArticle);
@@ -136,9 +134,26 @@
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                async: true,
                 success: function (data) {
-                    console.log(data[0]);
+                   console.log(data);
+                    location.reload();
+                },
+                error: function () {
+                    $('.fadeout-warning-'+data['delete-category']).show().delay(4000).fadeOut();
+
+                }
+
+            });
+        }
+
+        function ajaxRemoveArticle(data) {
+            $.ajax({
+                url: 'menu',
+                type: 'post',
+                dataType: 'json',
+                data: data,
+                success: function () {
+                    console.log('all good');
                 },
                 error: function () {
                     console.log('not working');

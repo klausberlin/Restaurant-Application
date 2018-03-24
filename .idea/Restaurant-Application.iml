@@ -2,8 +2,29 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-	<module fileurl="file://$PROJECT_DIR$/.idea/Restaurant-Application.iml" filepath="$PROJECT_DIR$/.idea/Restaurant-Application.iml" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHP" type="php">
+        <CLASSES>
+          <root url="file://C:/Windows/System32" />
+          <root url="file://C:/xampp/php" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://C:/Windows/System32" />
+          <root url="file://C:/xampp/php" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://C:/xampp/php/pharcommand.phar/" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://C:/xampp/php/pharcommand.phar/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

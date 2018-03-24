@@ -194,6 +194,19 @@ class DataModel implements DataInterface
 
     }
 
+    public function removeSingleFoodorderWithItemId($itemId)
+    {
+        $delete = $this->_foodorders->delete();
+        $delete->where(['item_id' => $itemId]);
+
+        $item = $this->_foodorders->prepareStatementForSqlObject($delete);
+        $return = $item->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
+    }
+
     /**
      * @param $itemId
      */
@@ -202,13 +215,13 @@ class DataModel implements DataInterface
         $delete = $this->_items->delete();
         $delete->where(['id' => $itemId]);
 
-        $item = $this->_foodorders->prepareStatementForSqlObject($delete);
+        $item = $this->_items->prepareStatementForSqlObject($delete);
         $return = $item->execute();
 
         //to loop more the one time through the var
         $resultSet = new ResultSet();
         $resultSet->initialize($return);
-        $return = $resultSet->toArray();
+//        $return = $resultSet->toArray();
     }
 
     /**
@@ -253,10 +266,15 @@ class DataModel implements DataInterface
 
     public function removeCategory($id)
     {
-//        $insert = $this->_category->insert();
-//        $insert->values(['name' => $categoryName]);
-//        $stmt = $this->_category->prepareStatementForSqlObject($insert);
-//        $stmt->execute();
+        $delete = $this->_category->delete();
+        $delete->where(['id' => $id]);
+
+        $category = $this->_category->prepareStatementForSqlObject($delete);
+        $return = $category->execute();
+
+        //to loop more the one time through the var
+        $resultSet = new ResultSet();
+        $resultSet->initialize($return);
     }
 
     public function getLatestFromCategory()

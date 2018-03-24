@@ -98,7 +98,7 @@
 
             //
             var i=0;
-            var fibonacci=0;
+            var fibonacci = 0;
             var value;
             var minus_obj;
 
@@ -109,9 +109,12 @@
             //select orders from menu
             $( ".table" ).on('click','tr',function(e){
                 e.preventDefault();
+
                 $('.counter').show();
+
                 var class_id = $(this).attr('class');
                 value = $(this).attr('value');
+
                 fibonacci= parseFloat(fibonacci)+parseFloat(value);
                 $( '.money' ).html(parseFloat(fibonacci).toFixed(2));
                 $( '.sum' ).attr('value', parseFloat(fibonacci).toFixed(2));
@@ -125,6 +128,7 @@
             //Bill
             //show/hide/calculate order and money
             $( '#listen' ).on('click','li',function(e){
+
                 $(e.target).remove();
 
                 minus_obj = $(this).attr('value');
