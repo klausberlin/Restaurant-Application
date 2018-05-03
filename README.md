@@ -9,7 +9,7 @@ This system is seperated into three view fields.
 2. Waitress
 3. Kitchen
 
-1 Manager 
+1. Manager 
 ......
 
 2. Waitress
