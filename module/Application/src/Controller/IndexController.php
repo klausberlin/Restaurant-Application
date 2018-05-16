@@ -66,7 +66,8 @@ class IndexController extends AbstractActionController
                     echo "Bitte überprüfen sie Benutzername oder Password";
 
                 } else {
-                    echo "logged";
+
+
                     if($role == 'Waitress'){
                         var_dump('Kellner');
                         $this->redirect()->toRoute('dashboard');
@@ -78,8 +79,9 @@ class IndexController extends AbstractActionController
                     }elseif($role == 'Manager') {
                         var_dump('MANAGER');
                         $this->redirect()->toRoute('dashboard');
+                    } else{
 
-
+                        return false;
                     }
                 }
                 //TEST

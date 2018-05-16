@@ -23,5 +23,6 @@ interface DataInterface
     public function removeCategory($id);
     public function getLatestFromCategory();
     public function removeSingleFoodorderWithItemId($itemId);
+    public function getAllOrdersFromUser($userId,$dateTime);
 
 }

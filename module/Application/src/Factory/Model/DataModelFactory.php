@@ -33,6 +33,7 @@ class DataModelFactory implements FactoryInterface
     public function __invoke(ContainerInterface $sm, $requestedName, array $options = null)
     {
         $dbAdapter = $sm->get('dbcon');
-        return new DataModel($dbAdapter);
+        $adapter = new DataModel($dbAdapter);
+        return $adapter;
     }
 }

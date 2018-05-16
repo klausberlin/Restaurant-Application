@@ -119,7 +119,13 @@ class DataModel implements DataInterface
     public function insertOrders($userId, $tableId, $totalPrice)
     {
         $insert = $this->_orders->insert();
-        $insert->values(['user_id' => $userId,'table_id' => $tableId,'totalprice' => $totalPrice]);
+        $insert->values(
+            [
+                'user_id' => $userId,
+                'table_id' => $tableId,
+                'totalprice' => $totalPrice,
+                'timestamp' => date('Y-m-d')
+            ]);
         $stmt = $this->_orders->prepareStatementForSqlObject($insert);
         $return = $stmt->execute();
         return $return;
@@ -290,6 +296,21 @@ class DataModel implements DataInterface
         $return = $resultSet->toArray();
 
         return $return;
+    }
+
+    /**
+     * Get all orders from a single waitress by date in manager
+     * @param $username
+     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     */
+    public function getAllOrdersFromUser($userId, $dateTime)
+    {
+        $select = $this->_orders->select();
+        $select->where(["user_id" => $userId]);
+        $select->where(["timestamp" => $dateTime]);
+        $orderFromUser = $this->_tables->prepareStatementForSqlObject($select);
+        $result = $orderFromUser->execute();
+        return $result;
     }
 
 }

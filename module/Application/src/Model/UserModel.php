@@ -31,7 +31,7 @@ class UserModel implements UserInterface
     //get all users for admin Dashboard
     public function getAllUsers(){
 
-        $select = $this->_table->select()->where(["role"=>"Waitress"]);
+        $select = $this->_table->select()->columns(['id','name'])->where(["role"=>"Waitress"]);
         $stmt = $this->_table->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
         return $result;

@@ -1,1 +1,89 @@
-user
+<?php
+
+$summery = 0;
+function asEuro($value) {
+    return '€' . number_format($value, 2);
+}
+?>
+
+<?php foreach ($waitress as $waitressData):?>
+    <form method="GET" name="waitress-time" action="#">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?= $waitressData['name'] ?>
+            </div>
+            <input type="hidden" name="waitress-id" value="<?= $waitressData['id'] ?>">
+            <div class="panel-body">
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control" name="datepicker">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-default" type="submit">
+                Daten bekommen
+            </button>
+        </div>
+    </form>
+<?php endforeach; ?>
+
+<?php if(!empty($orders)):?>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tisch Nr.</th>
+        <th>Datum</th>
+        <th>Einahmen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($orders as $dateOrders) :?>
+        <?php $summery += $dateOrders['totalprice']?>
+        <tr>
+            <td><?= $dateOrders['table_id'];?></td>
+            <td><?= $dateOrders['timestamp'];?></td>
+            <td><?= asEuro($dateOrders['totalprice']);?></td>
+        </tr>
+    <?php endforeach;?>
+    <tr>
+       <td colspan="3"></td>
+    </tr>
+    <tr>
+       <td colspan="2"></td>
+       <td>Tageseinnahme: <?=asEuro($summery)?></td>
+    </tr>
+
+    </tbody>
+    </table>
+<?php endif?>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well well-sm">
+                <div class="media">
+                    <a class="thumbnail pull-left" href="#">
+                        <img class="media-object" src="http://critterapp.pagodabox.com/img/user.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">First Last Name</h4>
+                        <p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>
+                        <p>
+                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Kassiert</a>
+                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Arbeitszeiten</a>
+                            <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Profil-Einstellung</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script>
+    $('.datepicker').datepicker();
+</script>
