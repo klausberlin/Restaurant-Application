@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf09444f-c471-4d49-bcc7-8fe92a0b215b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Pawel.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module/Application/view/application/dashboard/userinfo.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database.dummy.sql" afterPath="$PROJECT_DIR$/database.dummy.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Controller/DashboardController.php" afterPath="$PROJECT_DIR$/module/Application/src/Controller/DashboardController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" afterPath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Factory/Model/DataModelFactory.php" afterPath="$PROJECT_DIR$/module/Application/src/Factory/Model/DataModelFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Model/DataInterface.php" afterPath="$PROJECT_DIR$/module/Application/src/Model/DataInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Model/DataModel.php" afterPath="$PROJECT_DIR$/module/Application/src/Model/DataModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/src/Model/UserModel.php" afterPath="$PROJECT_DIR$/module/Application/src/Model/UserModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/view/application/dashboard/user.phtml" afterPath="$PROJECT_DIR$/module/Application/view/application/dashboard/user.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" />
     </list>
     <ignored path="Restaurant-Application.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +53,8 @@
       <file leaf-file-name="user.phtml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/module/Application/view/application/dashboard/user.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="74" column="127" lean-forward="false" selection-start-line="74" selection-start-column="127" selection-end-line="74" selection-end-column="127" />
+            <state relative-caret-position="226">
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -281,10 +270,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches">
-        <option name="show-excluded-files" value="false" />
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -389,6 +374,10 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches">
+        <option name="show-excluded-files" value="false" />
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -576,7 +565,8 @@
       <workItem from="1525725046067" duration="2838000" />
       <workItem from="1525897486368" duration="8900000" />
       <workItem from="1526056246194" duration="1229000" />
-      <workItem from="1526485171691" duration="34000" />
+      <workItem from="1526485171691" duration="253000" />
+      <workItem from="1526486511518" duration="30000" />
     </task>
     <task id="LOCAL-00001" summary="- created form with its validators &#10;- inside form (input for username, input for password, checkbox and submit button)&#10;- value from form gets validated in the controller and output get show for now at the index page">
       <created>1489251285543</created>
@@ -648,11 +638,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521887669323</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="- commit datepicker to select waitress and see how much the income was in euro">
+      <created>1526485263548</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1526485263548</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="397792000" />
+    <option name="totallyTimeSpent" value="398041000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -666,7 +663,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16897655" sideWeight="0.7760181" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1705757" sideWeight="0.7760181" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4969325" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36560366" sideWeight="0.2008593" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1401919" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -756,7 +753,8 @@
     <MESSAGE value="- send via ajax with mock data to backend" />
     <MESSAGE value="- can now create async new items and categories in manager module&#10;- can now remove async items and categories in manager module" />
     <MESSAGE value="- insert async data to card" />
-    <option name="LAST_COMMIT_MESSAGE" value="- insert async data to card" />
+    <MESSAGE value="- commit datepicker to select waitress and see how much the income was in euro" />
+    <option name="LAST_COMMIT_MESSAGE" value="- commit datepicker to select waitress and see how much the income was in euro" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1237,8 +1235,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Application/view/application/dashboard/user.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="74" column="127" lean-forward="false" selection-start-line="74" selection-start-column="127" selection-end-line="74" selection-end-column="127" />
+        <state relative-caret-position="226">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
         </state>
       </provider>
