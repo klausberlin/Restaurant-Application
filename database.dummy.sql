@@ -1,6 +1,8 @@
-drop database restaurant;
-create database restaurant;
-use restaurant;
+drop database  if exists restaurant
+
+create DATABASE restaurant;
+
+USE restaurant;
 
 create table category
 (
