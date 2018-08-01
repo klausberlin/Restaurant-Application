@@ -1,8 +1,10 @@
-drop database  if exists restaurant
+drop database if exists restaurant;
 
 create DATABASE restaurant;
 
-USE restaurant;
+use restaurant;
+
+SELECT SLEEP(0.2);
 
 create table category
 (
@@ -21,7 +23,6 @@ create table foodorders
 	status_id int not null
 );
 
-
 create table items
 (
 	id int auto_increment
@@ -32,6 +33,8 @@ create table items
 	constraint items_ibfk_1
 		foreign key (category) references category (id)
 );
+
+SELECT SLEEP(0.2);
 
 create table orders
 (
